@@ -1,5 +1,5 @@
 <template>
-  <div>Login...</div>
+  <div>Login组件内容...</div>
 </template>
 
 <script>

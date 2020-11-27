@@ -1,5 +1,5 @@
 <template>
-  <div>Register...</div>
+  <div>Register组件内容...</div>
 </template>
 
 <script>
