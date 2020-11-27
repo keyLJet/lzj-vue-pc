@@ -1,5 +1,8 @@
 <template>
-  <h3>App</h3>
+  <div>
+    <h3>App</h3>
+    <p>content for test...</p>
+  </div>
 </template>
 
 <script>
