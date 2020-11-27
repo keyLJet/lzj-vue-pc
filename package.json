@@ -9,8 +9,11 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "less": "^3.12.2",
+    "less-loader": "^7.1.0",
     "serve": "^11.3.2",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-router": "^3.4.9"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -33,9 +36,7 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {
-      
-    }
+    "rules": {}
   },
   "browserslist": [
     "> 1%",

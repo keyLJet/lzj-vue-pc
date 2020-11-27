@@ -1,15 +1,21 @@
 <template>
   <div>
-    <h3>App</h3>
-    <p>content for test...</p>
-    <p>content for secondtest...</p>
-    <p>content for thirdtest...</p>
+    <Header />
+    <router-view></router-view>
+    <Footer />
   </div>
 </template>
 
 <script>
+import Header from './components/Header'
+import Footer from './components/Footer'
+
 export default {
   name: "App",
+  components:{
+    Header,
+    Footer,
+  }
 };
 </script>
 
