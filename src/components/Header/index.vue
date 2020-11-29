@@ -31,13 +31,17 @@
         </router-link>
       </h1>
       <div class="searchArea">
-        <form action="###" class="searchForm">
+        <form action="###" class="searchForm" @submit.prevent="search">
           <input
             type="text"
             id="autocomplete"
             class="input-error input-xxlarge"
+            v-model="searchText"
           />
-          <button class="sui-btn btn-xlarge btn-danger" type="button" @click='search'>
+          <!-- button 按钮不设置type，默认情况下type为submit
+              通常我们在form标签上绑定submit事件并阻止其默认事件
+           -->
+          <button class="sui-btn btn-xlarge btn-danger"> 
             搜索
           </button>
         </form>
@@ -49,9 +53,33 @@
 <script>
 export default {
   name: "Header",
+  data(){
+    return {
+      //用户输入的搜索内容
+      searchText:'',
+    }
+  },
   methods:{
+    /**
+     * 搜索功能函数
+     */
     search(){
-      this.$router.push('/search')
+      const {searchText} = this
+      const params = searchText ? `/${searchText}` : ''
+      const location = '/search' + params
+      this.$router.push(location)
+
+      /* //push参数为对象形式：
+      const {searchText} = this
+      const location = {
+        name:'search',
+      }
+      if(searchText) {
+        location.params = {
+          searchText,
+        }
+      }
+      this.$router.push(location) */
     }
   }
 };
