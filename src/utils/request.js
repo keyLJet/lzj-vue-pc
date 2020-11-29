@@ -2,7 +2,7 @@
 
 import axios from "axios";
 //引入element-ui中的Message组件
-/* import { Message } from "element-ui"; */
+import { Message } from "element-ui";
 //引入进度条插件及其样式
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
@@ -30,7 +30,7 @@ instance.interceptors.response.use(
 
     //使用element-ui中的Message组件进行错误提示
     const { message } = response.data;
-    /* Message.error(message); */
+    Message.error(message);
     //功能失败，需要返回一个失败状态的promise对象
     return Promise.reject(message);
   },
@@ -40,7 +40,7 @@ instance.interceptors.response.use(
     const message = err.message || "网络出错了";
     
     //使用element-ui中的Message组件进行错误提示
-    /* Message.error(message); */
+    Message.error(message);
     return Promise.reject(message);
   }
 );
