@@ -16,6 +16,7 @@ module.exports = {
       },
     }
   },
+  //设置正向代理
   devServer:{
     proxy:{
       "/api":{
