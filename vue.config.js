@@ -2,9 +2,11 @@ const path = require("path")
 
 module.exports = {
   // lintOnSave:false,// 关闭ESLint的规则检查
+  // configureWebpack配置会与vue的webpack合并
   configureWebpack:{
     resolve:{
       alias:{
+        //配置路径别名
         "@api":path.resolve(__dirname,"src/api"),
         "@assets":path.resolve(__dirname,"src/assets"),
         "@comps":path.resolve(__dirname,"src/components"),
