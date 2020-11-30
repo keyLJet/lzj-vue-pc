@@ -64,12 +64,12 @@ export default {
      * 搜索功能函数
      */
     search(){
-      const {searchText} = this
+      /* const {searchText} = this
       const params = searchText ? `/${searchText}` : ''
       const location = '/search' + params
       this.$router.push(location)
-
-      /* //push参数为对象形式：
+ */
+      //push参数为对象形式：
       const {searchText} = this
       const location = {
         name:'search',
@@ -79,7 +79,13 @@ export default {
           searchText,
         }
       }
-      this.$router.push(location) */
+
+       // 添加query参数
+      const { categoryName } = this.$route.query;
+      if (categoryName) {
+        location.query = this.$route.query;
+      }
+      this.$router.push(location)
     }
   }
 };
