@@ -10,6 +10,9 @@ import "./styles/reset.css";
 
 import './plugins/element.js'
 
+//引入mockServer
+import './mock/mockServer'
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
