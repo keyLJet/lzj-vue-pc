@@ -1,8 +1,8 @@
 <template>
   <div>
     Login组件内容...
-    <!-- <el-button type="primary" @click="login">登陆</button> -->
-    <button  @click="login">登陆</button>
+    <el-button type="primary" @click="login">登陆</el-button>
+    <!-- <button  @click="login">登陆</button> -->
     </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
   methods:{
     // 测试登录
     login() {
-      reqLogin("13700000000", "1111111")
+      reqLogin("13700000000", "111111")
         .then((res) => {
           console.log("res", res);
         })
