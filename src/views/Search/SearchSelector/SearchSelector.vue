@@ -35,7 +35,7 @@
       <div class="fl key">{{ attrs.attrName }}</div>
       <div class="fl value">
         <ul class="type-list">
-          <li v-for="(attrValue,index) in attrValueList" :key='index'>
+          <li v-for="(attrValue,index) in attrs.attrValueList" :key='index'>
             <a>{{ attrValue }}</a>
           </li>
           <!-- <li>
