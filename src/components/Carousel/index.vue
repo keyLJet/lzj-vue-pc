@@ -1,5 +1,5 @@
 <template>
-  <div class="swiper-container">
+  <div class="swiper-container" ref='swiper'>
     <div class="swiper-wrapper">
       <div
         class="swiper-slide"
@@ -42,7 +42,14 @@ export default {
 
       // $nextTick确保当前页面更新完成后触发其中回调，即DOM结构生成后
       this.$nextTick(() => {
-        this.swiper = new Swiper(".swiper-container", {
+        this.initSwiper()
+      });
+    },
+  },
+  methods: {
+    initSwiper() {
+      // 使用 this.$refs.swiper 才能保证轮播图组件使用的自己的swiper
+      this.swiper = new Swiper(this.$refs.swiper, {
           loop: true, // 循环模式选项
 
           // 如果需要分页器
@@ -62,11 +69,15 @@ export default {
             disableOnInteraction: false,
           },
         });
-      });
     },
   },
-  methods: {},
-  mounted() {},
+  mounted() {
+    /* 
+    Floor组件中，轮播图数据一上来就有了。此时在mounted阶段，DOM结构也挂载完毕。可以new Swiper
+    */
+    if(!this.carouselList.length) return
+    this.initSwiper()
+  },
 };
 </script>
 

@@ -9,7 +9,7 @@
     <Rank />
     <!-- 猜你喜欢 -->
     <Like />
-    <!--楼层-->
+    <!--楼 层-->
     <Floor v-for="floor in floors" :key="floor.id" :floor="floor" />
     <!--商标-->
     <Brand />
@@ -29,16 +29,16 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   name: "Home",
-  computed:{
+  computed: {
     ...mapState({
-      floors:(state) => state.home.floors
-    })
+      floors: (state) => state.home.floors,
+    }),
   },
-  methods:{
-    ...mapActions(['getFloors'])
+  methods: {
+    ...mapActions(["getFloors"]),
   },
-  mounted(){
-    this.getFloors()
+  mounted() {
+    this.getFloors();
   },
   components: {
     Brand,
