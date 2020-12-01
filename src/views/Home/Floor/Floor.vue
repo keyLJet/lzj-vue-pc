@@ -41,8 +41,8 @@
                   <li>滚筒洗衣机</li>
                   <li>电热水器</li> -->
                 </ul>
-                <img v-lazy="floor.imgUrl" />
-                <!-- <img src="./images/floor-1-1.png" /> -->
+                <!-- <img v-lazy="floor.imgUrl" /> -->
+                <img src="./images/floor-1-1.png" />
               </div>
               <div class="floorBanner">
                 <div class="swiper-container" id="floor1Swiper">

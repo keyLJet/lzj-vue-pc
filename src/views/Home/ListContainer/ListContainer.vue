@@ -9,12 +9,12 @@
               <img src="./images/banner1.jpg" />
             </div>
           </div> -->
-          <div
-            class="swiper-wrapper"
-            v-for="banner in banners"
-            :key="banner.id"
-          >
-            <div class="swiper-slide">
+          <div class="swiper-wrapper">
+            <div
+              class="swiper-slide"
+              v-for="banner in banners"
+              :key="banner.id"
+            >
               <img :src="banner.imgUrl" />
             </div>
           </div>
@@ -101,6 +101,11 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+//引入轮播图插件及其css样式
+//swiper6之后还需另外引入Navigation Pagination,并以插件形式使用
+import Swiper, { Navigation, Pagination } from "swiper";
+import "swiper/swiper-bundle.min.css";
+Swiper.use([Navigation, Pagination]);
 
 export default {
   name: "ListContainer",
@@ -112,8 +117,33 @@ export default {
   methods: {
     ...mapActions(["getBanners"]),
   },
-  mounted() {
-    this.getBanners();
+  async mounted() {
+    await this.getBanners();
+
+    //生成DOM结构之后，才能new Swiper
+    //banners数据就绪之后,getBanners是async函数，结合await会等待异步请求reqGetBanners返回数据，再同步调用mutations数据
+    //通过console.log打印结果可以测试执行顺序为：action--mutation--然后new Swiper
+    //数据就绪了，但是更新用户界面是异步操作（promise微任务），此时更新的DOM结构并未挂载
+    //1.包裹定时器，使其成为宏任务
+    //2.this.$nextTick(() =>{})等用户界面更新完毕，再去触发其中的回调函数
+    // 全局 Vue.nextTick(() =>{})
+
+    this.$nextTick(() => {
+      new Swiper(".swiper-container", {
+        loop: true, // 循环模式选项
+
+        // 如果需要分页器
+        pagination: {
+          el: ".swiper-pagination",
+        },
+
+        // 如果需要前进后退按钮
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    });
   },
 };
 </script>
