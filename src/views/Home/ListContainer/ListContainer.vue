@@ -103,9 +103,9 @@
 import { mapState, mapActions } from "vuex";
 //引入轮播图插件及其css样式
 //swiper6之后还需另外引入Navigation Pagination,并以插件形式使用
-import Swiper, { Navigation, Pagination } from "swiper";
+import Swiper, { Navigation, Pagination,Autoplay } from "swiper";
 import "swiper/swiper-bundle.min.css";
-Swiper.use([Navigation, Pagination]);
+Swiper.use([Navigation, Pagination,Autoplay]);
 
 export default {
   name: "ListContainer",
@@ -141,6 +141,10 @@ export default {
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
+        },
+        //自动轮播
+        autoplay: {
+          delay: 2000,
         },
       });
     });
