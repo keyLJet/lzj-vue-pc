@@ -11,10 +11,18 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <li class="with-x" v-show="options.keyword" @click="delKeyword">
+              {{ options.keyword }}<i>×</i>
+            </li>
+            <li
+              class="with-x"
+              v-show="options.categoryName"
+              @click="delCategory"
+            >
+              {{ options.categoryName }}<i>×</i>
+            </li>
+            <!-- <li class="with-x">华为<i>×</i></li>
+            <li class="with-x">OPPO<i>×</i></li> -->
           </ul>
         </div>
 
@@ -885,8 +893,34 @@ export default {
         category3Id,
         categoryName,
       };
-
+      this.options = options;
       this.getProductList(options);
+    },
+    //删除keyword标签
+    delKeyword() {
+      this.options.keyword=''
+      
+      //同时也要清空Header组件搜索框内容searchText,通过全局事件总线
+      this.$bus.$emit("clearKeyword")
+
+      //改变地址，监视属性中相关函数会触发，发送请求并更新商品列表
+      this.$router.replace({
+        name:'search',
+        query:this.$route.query,
+      })
+    },
+    //删除已选分类标签
+    delCategory() {
+      this.options.categoryName = "";
+      this.options.category1Id = "";
+      this.options.category2Id = "";
+      this.options.category3Id = "";
+
+      //改变地址，监视属性中相关函数会触发，发送请求并更新商品列表
+      this.$router.replace({
+        name: "search",
+        params: this.$route.params,
+      });
     },
   },
   mounted() {

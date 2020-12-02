@@ -17,6 +17,9 @@ Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
+  beforeCreate(){
+    Vue.prototype.$bus = this
+  },
   render: h => h(App),
   router,
   store,

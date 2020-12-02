@@ -116,7 +116,13 @@ export default {
           searchText,
         };
       }
-      this.$router.push(location);
+      
+      //判断当前路由是否search路由，是则使用replace方法不产生历史记录
+      if(this.$route.path.indexOf('/search') > -1) {
+        this.$router.replace(location)
+      }else{
+        this.$router.push(location)
+      }
     },
   },
   mounted() {

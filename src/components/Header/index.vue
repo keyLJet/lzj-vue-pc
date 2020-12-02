@@ -85,9 +85,23 @@ export default {
       if (categoryName) {
         location.query = this.$route.query;
       }
-      this.$router.push(location)
+
+      //判断当前路由是否search路由，是则使用replace方法不产生历史记录
+      if(this.$route.path.indexOf('/search') > -1) {
+        this.$router.replace(location)
+      }else{
+        this.$router.push(location)
+      }
+      
     }
-  }
+  },
+  mounted() {
+    //绑定清空搜索框内容事件
+    this.$bus.$on("clearKeyword", () => {
+      // 清空searchText
+      this.searchText = "";
+    });
+  },
 };
 </script>
 
