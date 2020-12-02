@@ -7,6 +7,7 @@ import store from "./store";
 
 //公共资源
 import "./styles/reset.css";
+import "./styles/iconfont.css";
 
 import './plugins/element.js'
 
