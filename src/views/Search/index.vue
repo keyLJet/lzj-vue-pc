@@ -69,8 +69,8 @@
                       target="_blank"
                       href="item.html"
                       title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】"
-                      >
-                      {{goods.title}}
+                    >
+                      {{ goods.title }}
                     </a>
                   </div>
                   <div class="commit">
@@ -842,14 +842,56 @@ import TypeNav from "@comps/TypeNav";
 
 export default {
   name: "Search",
+  data() {
+    return {
+      options: {
+        category1Id: "",
+        category2Id: "",
+        category3Id: "",
+        categoryName: "",
+        keyword: "",
+        order: "",
+        pageNo: 1,
+        pageSize: 10,
+        props: [], // 商品属性
+        trademark: "", // 品牌
+      },
+    };
+  },
+  watch: {
+    $route() {
+      this.updateProductList();
+    },
+  },
   computed: {
     ...mapGetters(["goodsList"]),
   },
   methods: {
     ...mapActions(["getProductList"]),
+    //封装更新productList函数
+    updateProductList() {
+      const { searchText: keyword } = this.$route.params;
+      const {
+        category1Id,
+        category2Id,
+        category3Id,
+        categoryName,
+      } = this.$route.query;
+      const options = {
+        ...this.options,
+        keyword,
+        category1Id,
+        category2Id,
+        category3Id,
+        categoryName,
+      };
+
+      this.getProductList(options);
+    },
   },
   mounted() {
-    this.getProductList();
+    // 搜索页面一挂载先进行一次
+    this.updateProductList();
   },
   components: {
     SearchSelector,
