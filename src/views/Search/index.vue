@@ -851,7 +851,25 @@
           </div> -->
 
           <!-- 分页器 -->
-          <div class="fr page">
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="options.pageNo"
+            :pager-count="7"
+            :page-sizes="[5, 10, 15, 20]"
+            :page-size="5"
+            background
+            layout="
+              prev,
+              pager, 
+              next, 
+              total, 
+              sizes, 
+              jumper"
+            :total="total"
+          >
+          </el-pagination>
+          <!-- <div class="fr page">
             <div class="sui-pagination clearfix">
               <ul>
                 <li class="prev disabled">
@@ -879,7 +897,7 @@
               </ul>
               <div><span>共10页&nbsp;</span></div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -917,12 +935,13 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["goodsList"]),
+    ...mapGetters(["goodsList", "total"]),
   },
   methods: {
     ...mapActions(["getProductList"]),
     //封装更新productList函数
-    updateProductList() {
+    //切换选择商品类型更新商品列表时当前显示页面默认页码为第一页
+    updateProductList(pageNo = 1) {
       const { searchText: keyword } = this.$route.params;
       const {
         category1Id,
@@ -937,6 +956,7 @@ export default {
         category2Id,
         category3Id,
         categoryName,
+        pageNo,
       };
       this.options = options;
       this.getProductList(options);
@@ -1011,6 +1031,15 @@ export default {
 
       this.options.order = `${order}:${orderType}`;
       this.updateProductList();
+    },
+    //分页器中改变页码
+    handleCurrentChange(pageNo) {
+      this.updateProductList(pageNo)
+    },
+    //分页器中改变每页显示条数
+    handleSizeChange(pageSize) {
+      this.options.pageSize = pageSize
+      this.updateProductList()
     },
   },
   mounted() {

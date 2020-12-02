@@ -21,6 +21,9 @@ export default {
     goodsList(state) {
       return state.productList.goodsList;
     },
+    total(state) {
+      return state.productList.total
+    },
   },
   actions: {
     //data为搜索请求需要携带的相关参数，默认值为空对象
