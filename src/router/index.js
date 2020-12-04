@@ -5,6 +5,7 @@ import Home from '../views/Home'
 import Register from '../views/Register'
 import Login from '../views/Login'
 import Search from '../views/Search'
+import Detail from '../views/Detail'
 
 Vue.use(VueRouter)
 
@@ -56,5 +57,17 @@ export default new VueRouter({
       path:'/search/:searchText?',// ?代表params参数可选
       component:Search
     },
-  ]
+    {
+      name:'detail',
+      path:'/detail/:id',
+      component:Detail,
+    },
+  ],
+  //设置切换前端路由时，滚动条的初始位置
+  scrollBehavior(){
+    return {
+      x:0,
+      y:0,
+    }
+  },
 })
