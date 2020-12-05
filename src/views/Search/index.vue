@@ -923,7 +923,7 @@ export default {
         keyword: "",
         order: "",
         pageNo: 1,
-        pageSize: 10,
+        pageSize: 5,
         props: [], // 商品属性
         trademark: "", // 品牌
       },

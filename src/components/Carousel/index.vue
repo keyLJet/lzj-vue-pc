@@ -22,7 +22,6 @@
 //引入轮播图插件及其css样式
 //swiper6之后还需另外引入Navigation Pagination,并以插件形式使用
 import Swiper, { Navigation, Pagination, Autoplay } from "swiper";
-import "swiper/swiper-bundle.min.css";
 Swiper.use([Navigation, Pagination, Autoplay]);
 
 export default {
