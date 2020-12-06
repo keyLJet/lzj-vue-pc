@@ -6,6 +6,9 @@ import Register from '../views/Register'
 import Login from '../views/Login'
 import Search from '../views/Search'
 import Detail from '../views/Detail'
+import AddCartSuccess from '../views/AddCartSuccess'
+import ShopCart from '../views/ShopCart'
+
 
 Vue.use(VueRouter)
 
@@ -61,6 +64,16 @@ export default new VueRouter({
       name:'detail',
       path:'/detail/:id',
       component:Detail,
+    },
+    {
+      name:'shopCart',
+      path:'/shopCart',
+      component:ShopCart,
+    },
+    {
+      name:'addCartSuccess',
+      path:'/addCartSuccess',
+      component:AddCartSuccess,
     },
   ],
   //设置切换前端路由时，滚动条的初始位置

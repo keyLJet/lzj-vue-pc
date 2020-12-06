@@ -101,11 +101,15 @@
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt" />
-                <a href="javascript:" class="plus">+</a>
-                <a href="javascript:" class="mins">-</a>
+                <el-input-number
+                  class="input-number"
+                  v-model="skuNum"
+                  controls-position="right"
+                  :min="1"
+                  :max="100"
+                ></el-input-number>
               </div>
-              <div class="add">
+              <div class="add" @click="addCart">
                 <a href="javascript:">加入购物车</a>
               </div>
             </div>
@@ -356,15 +360,30 @@ export default {
   data() {
     return {
       currentImgIndex: 0,
+      skuNum:1,
     };
   },
   computed: {
     ...mapGetters(["categoryView", "skuInfo", "spuSaleAttrList"]),
   },
   methods: {
-    ...mapActions(["getProductDetail"]),
+    ...mapActions(["getProductDetail","updateCartCount"]),
     updateCurrentImgIndex(index){
       this.currentImgIndex = index
+    },
+    // 点击加入购物车事件回调函数
+    async addCart() {
+      try {
+        // 发送请求至后台，更新购物车商品数量，并手动更新vuex中数据
+        await this.updateCartCount({
+          skuId: this.skuInfo.id,
+          skuNum: this.skuNum,
+        });
+        // 后台及前端数据更新成功后，跳转到加入购物车成功页面
+        this.$router.push(`/addcartsuccess?skuNum=${this.skuNum}`);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
   mounted() {
@@ -583,6 +602,7 @@ export default {
 
             .add {
               float: left;
+              margin-left: 120px;
 
               a {
                 background-color: #e1251b;
