@@ -360,16 +360,16 @@ export default {
   data() {
     return {
       currentImgIndex: 0,
-      skuNum:1,
+      skuNum: 1,
     };
   },
   computed: {
     ...mapGetters(["categoryView", "skuInfo", "spuSaleAttrList"]),
   },
   methods: {
-    ...mapActions(["getProductDetail","updateCartCount"]),
-    updateCurrentImgIndex(index){
-      this.currentImgIndex = index
+    ...mapActions(["getProductDetail", "updateCartCount"]),
+    updateCurrentImgIndex(index) {
+      this.currentImgIndex = index;
     },
     // 点击加入购物车事件回调函数
     async addCart() {
@@ -380,6 +380,13 @@ export default {
           skuNum: this.skuNum,
         });
         // 后台及前端数据更新成功后，跳转到加入购物车成功页面
+
+        //缓存skuInfo到会话储存中，用于加入购物车成功页面显示相应商品列表
+        window.sessionStorage.setItem(
+          "SKU_INFO_KEY",
+          JSON.stringify(this.skuInfo)
+        );
+
         this.$router.push(`/addcartsuccess?skuNum=${this.skuNum}`);
       } catch (error) {
         console.log(error);
