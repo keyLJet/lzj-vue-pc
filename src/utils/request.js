@@ -8,6 +8,7 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
 import getUserTempId from "@utils/getUserTempId";
+import store from '../store'
 
 const userTempId = getUserTempId();
 
@@ -20,6 +21,10 @@ const instance = axios.create({
 instance.interceptors.request.use((config) => {
   NProgress.start();
   config.headers.userTempId = userTempId;
+  const token = store.state.user.token
+  if(token) {
+    config.headers.token = token
+  }
 
   return config;
 });
