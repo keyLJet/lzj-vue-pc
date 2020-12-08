@@ -39,6 +39,7 @@ VueRouter.prototype.replace = function(location, onComplete, onAbort) {
 };
 
 const router = new VueRouter({
+  mode:'history',
   routes: [
     {
       path: "/",
