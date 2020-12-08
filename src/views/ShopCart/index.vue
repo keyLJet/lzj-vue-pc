@@ -88,7 +88,7 @@
           <i class="summoney">{{ totalPrice }}</i>
         </div>
         <div class="sumbtn">
-          <a class="sum-btn" href="###" target="_blank">结算</a>
+          <a class="sum-btn" @click="submit">结算</a>
         </div>
       </div>
     </div>
@@ -202,6 +202,9 @@ export default {
           console.log(error.message);
         }
       }
+    },
+    submit(){
+      this.$router.push('/trade')
     },
   },
   mounted() {
