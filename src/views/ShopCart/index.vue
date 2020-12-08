@@ -32,10 +32,9 @@
           </li>
           <li class="cart-list-con5">
             <button
-              href="javascript:void(0)"
               class="mins"
               @click="updateCount(cart.skuId, -1,cart.skuNum)"
-              :disabled="cart.skuNum === 1"
+              
             >
               -
             </button>
@@ -49,10 +48,9 @@
               @blur="update(cart.skuId, cart.skuNum, $event)"
             />
             <button
-              href="javascript:void(0)"
               class="plus"
               @click="updateCount(cart.skuId, 1,cart.skuNum)"
-              :disabled="cart.skuNum === 10"
+             
             >
               +
             </button>
@@ -157,14 +155,29 @@ export default {
       e.target.value = skuNum;
     },
     //失去焦点后发送更新商品数量请求
-    update(e) {
+    update(skuId, skuNum, e) {
       if (+e.target.value === skuNum) {
         return;
       }
       this.updateCartCount({ skuId, skuNum: e.target.value - skuNum });
     },
     // 更新商品数量
-    async updateCount(skuId, skuNum) {
+    async updateCount(skuId, skuNum,count) {
+      if (count <= 1 && skuNum  === -1) {
+        // 删除商品
+        if (window.confirm('您是否要删除当前商品吗')) {
+          // 删除商品
+        }
+
+        return;
+      }
+
+      // 100 是库存总量
+      if (count >= 10 && skuNum === 1) {
+        alert('超出库存了~')
+        return;
+      }
+   
       await this.updateCartCount({ skuId, skuNum });
     },
     async updateCartCheck(cart) {

@@ -12,6 +12,7 @@ import Center from "../views/Center";
 import Pay from "../views/Pay";
 import PaySuccess from "../views/PaySuccess";
 import Trade from "../views/Trade";
+import store from '../store'
 
 Vue.use(VueRouter);
 
@@ -37,7 +38,7 @@ VueRouter.prototype.replace = function(location, onComplete, onAbort) {
   return replace.call(this, location, onComplete, () => {});
 };
 
-export default new VueRouter({
+const router = new VueRouter({
   routes: [
     {
       path: "/",
@@ -77,6 +78,12 @@ export default new VueRouter({
       name: "addCartSuccess",
       path: "/addCartSuccess",
       component: AddCartSuccess,
+      beforeEnter:(to,from,next) =>{
+        if(from.name === 'detail' && window.sessionStorage.getItem('SKU_INFO_KEY')){
+          return next()
+        }
+        next('/shopCart')
+      },
     },
     {
       name: "center",
@@ -107,3 +114,15 @@ export default new VueRouter({
     };
   },
 });
+
+//配置全局前置守卫
+const permisionPaths = ['/pay','/center/myorder','/trade','/paysuccess']
+
+router.beforeEach((to,from,next) =>{
+  if(permisionPaths.indexOf(to.path) > -1 && !store.state.user.token) {
+    return next('/login')
+  }
+  next()
+})
+
+export default router
