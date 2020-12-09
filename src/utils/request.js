@@ -8,12 +8,17 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
 import getUserTempId from "@utils/getUserTempId";
-import store from '../store'
+import store from "../store";
 
 const userTempId = getUserTempId();
 
+//如果是开发环境，则请求地址为当前服务器地址，webpack中配置了正向代理服务器
+//如果是生成环境，需要直接请求api文档中提供的服务器地址
+const url =
+  process.env.NODE_ENV === "development" ? "/" : "http://182.92.128.115/";
+
 const instance = axios.create({
-  baseURL: "/api", //  用 / 即代表当前服务器地址
+  baseURL: `${url}api`, //  用 / 即代表当前服务器地址
   headers: {},
 });
 
@@ -21,9 +26,9 @@ const instance = axios.create({
 instance.interceptors.request.use((config) => {
   NProgress.start();
   config.headers.userTempId = userTempId;
-  const token = store.state.user.token
-  if(token) {
-    config.headers.token = token
+  const token = store.state.user.token;
+  if (token) {
+    config.headers.token = token;
   }
 
   return config;
@@ -49,7 +54,7 @@ instance.interceptors.response.use(
   (err) => {
     NProgress.done();
     const message = err.message || "网络出错了";
-    
+
     //使用element-ui中的Message组件进行错误提示
     Message.error(message);
     return Promise.reject(message);
